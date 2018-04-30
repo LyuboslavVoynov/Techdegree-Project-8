@@ -14,31 +14,31 @@ const del  = require("del");//delete files/folders
 
 //scripts
 gulp.task('scripts', function(){
-    return gulp.src(['js/**/*.js'])//grab source files
+    return gulp.src(['js/**/*.js'])//grab js files
     .pipe(maps.init())//start map
     .pipe(concat('all.js'))  //concat all files into one file
     .pipe(uglify())//minify the file
-    .pipe(rename('all.min.js'))//rename to correct name
-    .pipe(maps.write('./'))//write the map
+    .pipe(rename('all.min.js'))//rename 
+    .pipe(maps.write('./'))//write map
     .pipe(gulp.dest('dist/scripts'));//place into the correct location
 });
 
 //styles
 gulp.task('styles', function(){
-    return gulp.src('sass/global.scss')//grab the correct file
+    return gulp.src('sass/global.scss')//grab sass file
     .pipe(maps.init())  //start map
     .pipe(sass())//compile to css
     .pipe(cleanCss())  //minify the file
-    .pipe(rename('all.min.css'))//rename to correct name
-    .pipe(maps.write('./'))  //write the map
+    .pipe(rename('all.min.css'))//rename 
+    .pipe(maps.write('./'))  //write  map
     .pipe(gulp.dest('dist/styles'));//place into the correct location
 });
 
 //images task
 gulp.task('images',function(){
-    return gulp.src('images/*')    //get all image files
-    .pipe(imageMin())//optimize them
-    .pipe(gulp.dest('dist/content'));//place them into the correct location
+    return gulp.src('images/*')    //grab all image files
+    .pipe(imageMin())//optimize image files
+    .pipe(gulp.dest('dist/content'));//place into the correct location
 });
 
 
