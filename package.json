@@ -9,6 +9,7 @@
   "author": "Lyuboslav Voynov",
   "license": "MIT",
   "dependencies": {
+    "browser-sync": "^2.24.3",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^3.9.3",

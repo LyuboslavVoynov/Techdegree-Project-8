@@ -10,6 +10,7 @@ const cleanCss = require("gulp-clean-css");//minify css
 const maps = require("gulp-sourcemaps");//create sourcemaps for css and js
 const imageMin = require("gulp-imagemin");//optimize images
 const del  = require("del");//delete files/folders
+const browserSync   = require("browser-sync").create();//start server
 
 
 //scripts
@@ -18,7 +19,7 @@ gulp.task('scripts', function(){
     .pipe(maps.init())//start map
     .pipe(concat('all.js'))  //concat all files into one file
     .pipe(uglify())//minify the file
-    .pipe(rename('all.min.js'))//rename 
+    .pipe(rename('all.min.js'))//rename
     .pipe(maps.write('./'))//write map
     .pipe(gulp.dest('dist/scripts'));//place into the correct location
 });
@@ -29,7 +30,7 @@ gulp.task('styles', function(){
     .pipe(maps.init())  //start map
     .pipe(sass())//compile to css
     .pipe(cleanCss())  //minify the file
-    .pipe(rename('all.min.css'))//rename 
+    .pipe(rename('all.min.css'))//rename
     .pipe(maps.write('./'))  //write  map
     .pipe(gulp.dest('dist/styles'));//place into the correct location
 });
@@ -52,11 +53,20 @@ gulp.task('watch', function(){
 gulp.task('clean', function(){
     del('dist');
 });
-
+//creates a local server at port 3000
+gulp.task('serve', ['scripts', 'styles', 'images','watch'], function () {
+    browserSync.init({
+        server: {
+            baseDir: "./",
+            port: 3000,
+            proxy: "localhost:3000"
+        }
+    });
+});
 // runs all the tasks
-gulp.task('build', ['scripts', 'styles', 'images','watch']);
+gulp.task('build', ['clean'], function(){
+   gulp.start(['serve']);
+});
 
 //default task runs gulp clean first and then gulp build
-gulp.task('default', ['clean'], function(){
-  gulp.start('build');
-});
+gulp.task('default', ['build']);
