@@ -10,7 +10,7 @@ const cleanCss = require("gulp-clean-css");//minify css
 const maps = require("gulp-sourcemaps");//create sourcemaps for css and js
 const imageMin = require("gulp-imagemin");//optimize images
 const del  = require("del");//delete files/folders
-const browserSync   = require("browser-sync").create();//start server
+const browser = require("browser-sync").create();//start server
 
 
 //scripts
@@ -55,7 +55,7 @@ gulp.task('clean', function(){
 });
 //creates a local server at port 3000
 gulp.task('serve', ['scripts', 'styles', 'images','watch'], function () {
-    browserSync.init({
+    browser.init({
         server: {
             baseDir: "./",
             port: 3000,
